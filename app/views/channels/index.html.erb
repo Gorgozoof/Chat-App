@@ -1,0 +1,12 @@
+<div class="container">
+    <h1>All Channels</h1>
+    <ul>
+      <% @channels.each do |channel| %>
+        <li>
+          <%= link_to channel.name, channel_messages_path(channel) %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to "New Channel", new_channel_path, class: "btn" %>
+  </div>
+  

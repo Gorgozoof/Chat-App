@@ -1,0 +1,47 @@
+<div class="chat-container">
+    <h1>Chat Room - <%= @channel.name %></h1>
+    
+    <!-- Chat messages listing -->
+    <div class="messages">
+      <% @messages.each do |message| %>
+        <div class="message">
+          <strong><%= message.user.name %>:</strong>
+          <span><%= message.content %></span>
+          <small>(<%= message.created_at.strftime("%H:%M") %>)</small>
+        </div>
+      <% end %>
+    </div>
+    
+    <!-- New message form -->
+    <div class="new-message">
+      <% if @message.errors.any? %>
+        <div class="alert">
+          <h2>
+            <%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:
+          </h2>
+          <ul>
+            <% @message.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    
+      <%= form_with model: @message, url: channel_messages_path(@channel), local: true do |f| %>
+        <div class="field">
+          <%= f.label :user_id, "Sender:" %>
+          <%= f.select :user_id, options_from_collection_for_select(@users, :id, :name), prompt: "Select user" %>
+        </div>
+    
+        <div class="field">
+          <%= f.label :content, "Message:" %>
+          <%= f.text_area :content, rows: 3 %>
+        </div>
+    
+        <div class="actions">
+          <%= f.submit "Send", class: "btn" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  

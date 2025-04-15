@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Chat App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header>
+      <h1><%= link_to "Chat App", root_path %></h1>
+      <nav>
+        <!-- If you want a standalone user creation route, use new_user_path,
+             or if nested, provide a channel_id; here I'll assume standalone: -->
+        <%= link_to "New User", new_user_path, class: "btn" %> |
+        <%= link_to "Channels", channels_path, class: "btn" %>
+      </nav>
+      <hr>
+    </header>
+
+    <%= yield %>
+  </body>
+</html>

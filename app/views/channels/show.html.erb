@@ -1,0 +1,27 @@
+<h1><%= @channel.name %></h1>
+
+<div class="messages">
+  <% @messages.each do |message| %>
+    <div class="message">
+      <strong><%= message.user.name %>:</strong>
+      <span><%= message.content %></span>
+      <small>(<%= message.created_at.strftime("%H:%M") %>)</small>
+    </div>
+  <% end %>
+</div>
+
+<%= form_with model: Message.new, url: channel_messages_path(@channel), local: true do |f| %>
+  <div class="field">
+    <%= f.label :user_id, "Sender:" %>
+    <%= f.select :user_id, options_from_collection_for_select(@users, :id, :name), prompt: "Select user" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content, "Message:" %>
+    <%= f.text_area :content, rows: 3 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Send", class: "btn" %>
+  </div>
+<% end %>
