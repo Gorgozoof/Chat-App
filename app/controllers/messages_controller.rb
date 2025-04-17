@@ -9,14 +9,16 @@ class MessagesController < ApplicationController
 
   def create
     @message = @channel.messages.build(message_params)
+    @message.user = current_user  # 👈 Associate message with the logged-in user
+  
     if @message.save
       redirect_to channel_messages_path(@channel), notice: "Message sent."
     else
       @messages = @channel.messages.includes(:user).order(created_at: :asc)
-      @users = User.all
       render :index, status: :unprocessable_entity
     end
   end
+  
 
   private
 
@@ -25,6 +27,6 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.require(:message).permit(:content, :user_id)
+    params.require(:message).permit(:content)
   end
 end
