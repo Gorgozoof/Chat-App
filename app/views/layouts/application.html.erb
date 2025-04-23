@@ -15,21 +15,20 @@
       <% if current_user %>
         Logged in as <strong><%= current_user.name %></strong>
         <%= button_to "Log Out", logout_path, method: :delete, class: "btn" %>
-      <% else %>
-        <%= link_to "Log In", login_path, class: "btn" %>
       <% end %>
     </nav>
     
     <header>
       <h1><%= link_to "Chat App", root_path %></h1>
       <nav>
-        <!-- If you want a standalone user creation route, use new_user_path,
-             or if nested, provide a channel_id; here I'll assume standalone: -->
-        <%= link_to "New User", new_user_path, class: "btn" %> |
-        <%= link_to "Channels", channels_path, class: "btn" %>
+        <%= link_to "Sign Up", new_user_path, class: "btn" %>
+        <% unless current_user %>
+           <%= link_to "Log In", login_path, class: "btn" %>
+        <% end %>
       </nav>
       <hr>
     </header>
+    
 
     <%= yield %>
   </body>

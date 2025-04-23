@@ -6,8 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # Redirect to the channel messages page; here we assume channel 1 by default.
-      redirect_to channel_messages_path(1), notice: "User created successfully."
+      redirect_to login_path, notice: "Account created—please log in."
     else
       render :new, status: :unprocessable_entity
     end

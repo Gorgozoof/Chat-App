@@ -22,14 +22,30 @@ body {
   .messages {
     max-height: 400px;
     overflow-y: auto;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     padding: 1rem;
     margin-bottom: 1rem;
+    background-color: var(--bg-card);
   }
+  
   .message {
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-bottom: 1px dotted #ccc;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+  
+  .message strong {
+    margin-bottom: 0.25rem;
+  }
+  
+  .message small {
+    align-self: flex-end;
+    color: #666;
+    font-size: 0.75rem;
   }
   .alert {
     border: 1px solid #f44336;

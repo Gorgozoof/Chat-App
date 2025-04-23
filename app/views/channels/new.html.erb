@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Create a New Channel</h1>
+  
+    <% if @channel.errors.any? %>
+      <div class="alert">
+        <h2><%= pluralize(@channel.errors.count, "error") %> prevented this channel from being saved:</h2>
+        <ul>
+          <% @channel.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <%= form_with model: @channel, local: true do |f| %>
+      <div class="field">
+        <%= f.label :name, "Channel name:" %>
+        <%= f.text_field :name %>
+      </div>
+  
+      <div class="actions">
+        <%= f.submit "Create Channel", class: "btn" %>
+      </div>
+    <% end %>
+  </div>
+  

@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
   before_action :set_channel
+  before_action :require_login, only: [:create]
+
 
   def index
     @messages = @channel.messages.includes(:user).order(created_at: :asc)
@@ -25,6 +27,13 @@ class MessagesController < ApplicationController
   def set_channel
     @channel = Channel.find(params[:channel_id])
   end
+
+  def require_login
+    unless current_user
+      redirect_to login_path, alert: "You need to log in to send messages."
+    end
+  end
+  
 
   def message_params
     params.require(:message).permit(:content)
